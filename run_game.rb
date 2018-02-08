@@ -17,6 +17,7 @@ end
 def get_human_spot
   loop do
     @view.show_game_status
+    @view.ask_entry
     validates = Validation.new(@game.board, gets.chomp)
     if validates.pass
       @game.board[validates.spot.to_i] = @game.hum

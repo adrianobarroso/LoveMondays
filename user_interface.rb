@@ -8,11 +8,15 @@ class UserInterface
     message += " #{@game.board[3]} | #{@game.board[4]} | #{@game.board[5]} \n===+===+===\n"
     message += " #{@game.board[6]} | #{@game.board[7]} | #{@game.board[8]} \n"
     puts message
-    puts "Entry: [0-8]"
   end
 
   def finish
+    show_game_status
     puts "Game over"
+  end
+
+  def ask_entry
+    puts "Entry: [0-8]"
   end
 
   def self.level
