@@ -1,27 +1,23 @@
 class Game
   attr_reader :com, :hum
-  attr_accessor :board
+  attr_accessor :board, :level
 
-  def initialize(level)
+  def initialize
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
-    @level = level #Validation.level_validation(level)
+    @level = nil #Validation.level_validation(level)
   end
 
   def eval_board
     spot = nil
     until spot
-      if @board[4] == "4"
-        spot = 4
-        @board[spot] = @com
+      if @board[4] == "4" && @level == "3"
+        # spot = 4
+        @board[4] = @com
       else
-        spot = get_best_move(@board, @com, @level.to_i + 2)
-        if @board[spot] != "X" && @board[spot] != "O"
-          @board[spot] = @com
-        else
-          spot = nil
-        end
+        spot = get_best_move(@board, @com, @level.to_i * 2)
+        @board[spot] != "X" && @board[spot] != "O" ? @board[spot] = @com : spot = nil
       end
     end
   end

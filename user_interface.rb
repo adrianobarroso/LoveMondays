@@ -17,10 +17,11 @@ class UserInterface
 
   def ask_entry
     puts "Entry: [0-8]"
+    gets.chomp
   end
 
-  def self.level
-    puts "Please entry the level you want to play: [0: easy - 1: intermediate - 2: hard]"
+  def level
+    puts "Please entry the level you want to play: \n1 = easy \n2 = intermediate \n3 = hard"
     gets.chomp
   end
 end

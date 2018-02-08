@@ -1,38 +1,37 @@
 class Validation
-  attr_reader :pass, :spot
+  attr_reader :pass, :number
 
-  def initialize(board, spot)
+  def initialize(board, number)
     @board = board
-    @spot = spot
+    @number = number
     @pass = true
-    validates
   end
 
   def validates
-    handle_error(1) unless is_integer?(@spot)
+    handle_error(1) unless is_integer?
     handle_error(2) unless check_board?
     handle_error(3) unless range?
   end
 
   def check_board?
-    @board[@spot.to_i] != "X" && @board[@spot.to_i] != "O"
+    @board[@number.to_i] != "X" && @board[@number.to_i] != "O"
   end
 
-  def is_integer?(n)
-    true if Integer(n) rescue false
+  def is_integer?
+    true if Integer(@number) rescue false
   end
 
   def range?
-    (0..8).include? @spot.to_i
+    (0..8).include? @number.to_i
   end
 
-  def range_level?(level)
-    (0..2).include? level.to_i
+  def range_level?
+    (1..3).include? @number.to_i
   end
 
-  def self.level_validation(level)
-    handle_error(1) unless is_integer?(level)
-    handle_error(4) unless range_level?(level)
+  def level_validation
+    handle_error(1) unless is_integer?
+    handle_error(4) unless range_level?
   end
 
   def handle_error(n)
@@ -41,7 +40,7 @@ class Validation
     message = "\t########## \n\tInput number is not an integer \n\t##########" if n == 1
     message = "\t########## \n\tSpot location already selected \n\t##########" if n == 2
     message = "\t########## \n\tInput number not in the range [0..8]\n\t##########" if n == 3
-    message = "\t########## \n\tLevel input not in the range [0..2]\n\t##########" if n == 4
+    message = "\t########## \n\tLevel input not in the range [1..3]\n\t##########" if n == 4
     puts message
     puts "\nPlease send a valid input\n\n"
   end
