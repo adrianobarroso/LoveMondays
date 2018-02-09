@@ -1,20 +1,21 @@
 class Game
   attr_reader :com, :hum
-  attr_accessor :board, :level
+  attr_accessor :board, :level, :game_mode
 
   def initialize
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
+    @game_mode = nil
     @level = nil
   end
 
-  def eval_board
+  def eval_board(mode)
     if @board[4] == "4" && @level == "3"
-      @board[4] = @com
+      @board[4] = mode
     else
-      spot = get_best_move(@board, @com, @level.to_i * 2)
-      @board[spot] = @com
+      spot = get_best_move(@board, mode, @level.to_i * 2)
+      @board[spot] = mode
     end
   end
 
@@ -49,4 +50,8 @@ class Game
     b.all? { |s| s == "X" || s == "O" }
   end
 
+  def select_player
+    return "X" if @game_mode != "3"
+    @board.select { |s| s != "X" && s != "O" }.size.odd? ? "O" : "X"
+  end
 end

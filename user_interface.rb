@@ -3,6 +3,13 @@ class UserInterface
     @game = game
   end
 
+  def game_type
+    message = "Please entry which mode do you want to play: \n1 = player vs computer "
+    message += "\n2 = player vs player \n3 = computer vs computer"
+    puts message
+    gets.chomp
+  end
+
   def show_game_status
     message = " #{@game.board[0]} | #{@game.board[1]} | #{@game.board[2]} \n===+===+===\n"
     message += " #{@game.board[3]} | #{@game.board[4]} | #{@game.board[5]} \n===+===+===\n"

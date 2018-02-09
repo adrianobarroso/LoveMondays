@@ -29,7 +29,7 @@ class Validation
     (1..3).include? @number.to_i
   end
 
-  def level_validation
+  def number_validation
     handle_error(1) unless is_integer?
     handle_error(4) unless range_level?
   end
@@ -40,7 +40,7 @@ class Validation
     message = "\t########## \n\tInput number is not an integer \n\t##########" if n == 1
     message = "\t########## \n\tSpot location already selected \n\t##########" if n == 2
     message = "\t########## \n\tInput number not in the range [0..8]\n\t##########" if n == 3
-    message = "\t########## \n\tLevel input not in the range [1..3]\n\t##########" if n == 4
+    message = "\t########## \n\tInput not in the range [1..3]\n\t##########" if n == 4
     puts message
     puts "\nPlease send a valid input\n\n"
   end
