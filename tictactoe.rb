@@ -14,35 +14,23 @@ class Game
       @board[4] = @com
     else
       spot = get_best_move(@board, @com, @level.to_i * 2)
-      @board[spot] != "X" && @board[spot] != "O" ? @board[spot] = @com : spot = nil
+      @board[spot] = @com
     end
   end
 
-  def get_best_move(board, next_player, depth = 0, best_score = {})
-    available_spaces = []
-    best_move = nil
-    board.each { |s| available_spaces << s if s != "X" && s != "O" }
-
+  def get_best_move(board, next_player, depth = 1)
+    available_spaces = board.select { |s| s != "X" && s != "O" }
     available_spaces.first(depth).each do |as|
+      # case computer win on next move
       board[as.to_i] = @com
-      if game_is_over(board)
-        best_move = as.to_i
-        board[as.to_i] = as
-        return best_move
-      else
-        board[as.to_i] = @hum
-        if game_is_over(board)
-          best_move = as.to_i
-          board[as.to_i] = as
-          return best_move
-        end
-        board[as.to_i] = as
-      end
+      return as.to_i if game_is_over(board)
+      # case user win on next move
+      board[as.to_i] = @hum
+      return as.to_i if game_is_over(board)
+
+      board[as.to_i] = as
     end
-
-    return best_move if best_move
-    n = rand(0..available_spaces.count)
-
+    n = rand(0..available_spaces.count - 1)
     return available_spaces[n].to_i
   end
 

@@ -13,9 +13,12 @@ def start_game
       break
     end
   end
+
   until @game.game_is_over(@game.board) || @game.tie(@game.board)
     get_human_spot
-    @game.eval_board if !@game.game_is_over(@game.board) && !@game.tie(@game.board)
+    if !@game.game_is_over(@game.board) && !@game.tie(@game.board)
+      @game.eval_board
+    end
   end
   @view.finish
 end
