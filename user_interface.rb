@@ -19,10 +19,19 @@ class UserInterface
 
   def finish
     show_game_status
-    puts "Game over"
+    puts ""
+    puts ""
+    puts @game.show_winner
+    puts ""
+    puts ""
   end
 
-  def ask_entry
+  def ask_entry(type)
+    if type == "hum"
+      puts "\nPlayer 1 move"
+    elsif type == "com"
+      puts "\nPlayer 2 move"
+    end
     puts "Entry: [0-8]"
     gets.chomp
   end

@@ -13,6 +13,7 @@ def start_game
       mode = @game.select_player
       @game.eval_board(mode)
     else
+      break if @game.game_is_over(@game.board) || @game.tie(@game.board)
       get_human_spot("com")
     end
   end
@@ -22,7 +23,7 @@ end
 def get_human_spot(type)
   loop do
     @view.show_game_status
-    validation = Validation.new(@game.board, @view.ask_entry)
+    validation = Validation.new(@game.board, @view.ask_entry(type))
     validation.validates
     if validation.pass
       @game.board[validation.number.to_i] = type == "hum" ? @game.hum : @game.com
@@ -37,6 +38,7 @@ def enter_game
     validation_enter.number_validation
 
     if validation_enter.number == "1" && validation_enter.pass
+      @game.game_mode = validation_enter.number
       validation_level = Validation.new(@game.board, @view.level)
       validation_level.number_validation
 
